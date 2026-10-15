@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Reports | MyShop</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #182747;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .header a {
+            color: #4d66e8;
+            text-decoration: none;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px #0000000a;
+        }
+
+        .card p {
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #eef2ff;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            .card h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="header">
+        <div>
+            <h1>MyShop Sales Reports</h1>
+            <p>Overview of completed orders and product sales</p>
+        </div>
+
+        <a href="/inventory/">Inventory Dashboard</a>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <p>Total Completed Orders</p>
+            <h2>{{ total_orders }}</h2>
+        </div>
+
+        <div class="card">
+            <p>Total Sales</p>
+            <h2>₹{{ total_sales|floatformat:2 }}</h2>
+        </div>
+
+        <div class="card">
+            <p>Today's Completed Orders</p>
+            <h2>{{ today_orders }}</h2>
+        </div>
+
+        <div class="card">
+            <p>Today's Sales</p>
+            <h2>₹{{ today_sales|floatformat:2 }}</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Top 5 Selling Products</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Units Sold</th>
+                        <th>Sales Revenue</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for product in top_products %}
+                    <tr>
+                        <td>{{ product.product__name }}</td>
+                        <td>{{ product.units_sold }}</td>
+                        <td>₹{{ product.revenue|floatformat:2 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">
+                            No completed product sales yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <p style="color: #64748b; margin-top: 20px;">
+        Reports include Confirmed, Shipped and Delivered orders only.
+    </p>
+
+    <p><a href="/">← Back to MyShop</a></p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShop Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6fb;
+            color: #172033;
+            margin: 0;
+            padding: 24px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .card, .table-wrap {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #0000000a;
+        }
+        .card p { color: #64748b; margin-bottom: 8px; }
+        .card h2 { margin: 0; }
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th { background: #f8fafc; }
+        .low { color: #b45309; font-weight: bold; }
+        .out { color: #dc2626; font-weight: bold; }
+        .ok { color: #15803d; font-weight: bold; }
+        a { color: #2563eb; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>MyShop Inventory Dashboard</h1>
+    <p>Product stock, sales and inventory status</p>
+    
+    {% if low_stock_count > 0 %}
+    <div style="background:#fff7ed; border:1px solid #fdba74;
+                color:#9a3412; padding:16px; border-radius:10px;
+                margin:20px 0;">
+        <strong>⚠ Low Stock Alert!</strong>
+        {{ low_stock_count }} product(s) have 5 or fewer units remaining.
+        Please review your inventory.
+    </div>
+    {% else %}
+    <div style="background:#f0fdf4; border:1px solid #86efac;
+                color:#166534; padding:16px; border-radius:10px;
+                margin:20px 0;">
+        <strong>✓ Inventory looks good.</strong>
+        No products are currently at or below the low-stock limit.
+    </div>
+    {% endif %}
+
+    <p><a href="/">← Back to MyShop</a> |
+       <a href="/admin/">Django Admin</a></p>
+
+    <div class="cards">
+        <div class="card">
+            <p>Total Products</p>
+            <h2>{{ total_products }}</h2>
+        </div>
+        <div class="card">
+            <p>Units in Stock</p>
+            <h2>{{ total_stock }}</h2>
+        </div>
+        <div class="card">
+            <p>Units Sold</p>
+            <h2>{{ sold_units }}</h2>
+        </div>
+        <div class="card">
+            <p>Low Stock Products</p>
+            <h2>{{ low_stock_count }}</h2>
+        </div>
+        <div class="card">
+            <p>Sales Total</p>
+            <h2>₹{{ sales_total|floatformat:2 }}</h2>
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <h2>Product Inventory</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Units Sold</th>
+                    <th>Remaining Stock</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>₹{{ product.price }}</td>
+                    <td>{{ product.sold_units }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>
+                        {% if product.stock == 0 %}
+                            <span class="out">Out of stock</span>
+                        {% elif product.stock <= 5 %}
+                            <span class="low">Low stock</span>
+                        {% else %}
+                            <span class="ok">In stock</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No products found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="table-wrap" style="margin-top:24px;">
+            <h2>⚠ Products Requiring Restock</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Current Stock</th>
+                        <th>Recommended Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        {% if product.stock <= 5 %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.stock }}</td>
+                            <td>
+                                {% if product.stock == 0 %}
+                                    Out of stock — restock needed
+                                {% else %}
+                                    Low stock — consider restocking
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="3">No products found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

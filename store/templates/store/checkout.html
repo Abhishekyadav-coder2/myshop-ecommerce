@@ -1,0 +1,129 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | MyShop</title>
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+</head>
+<body>
+    <main class="checkout-page">
+        <div class="checkout-shell">
+
+            <a href="{% url 'home' %}" class="checkout-brand">
+                <span>M</span> MyShop
+            </a>
+
+            <header class="checkout-heading">
+                <h1>Almost yours.</h1>
+                <p>Just a few details and we can prepare your order.</p>
+            </header>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="checkout-notice">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="checkout-layout">
+                <section class="checkout-card">
+                    <h2>Delivery details</h2>
+                    <p class="checkout-caption">
+                        Enter the information needed to deliver your order.
+                    </p>
+
+                    <form method="post" class="checkout-form">
+                        {% csrf_token %}
+
+                        
+                        <div class="checkout-field">
+                            <label for="customer_name">Full name</label>
+                            <input
+                                id="customer_name"
+                                name="customer_name"
+                                type="text"
+                                maxlength="50"
+                                autocomplete="name"
+                                placeholder="Enter your full name"
+                                required>
+                            <small>Maximum 50 characters. Letters only.</small>
+                        </div>
+
+                        <div class="checkout-field">
+                            <label for="phone">Phone number</label>
+                            <input
+                                id="phone"
+                                name="phone"
+                                type="tel"
+                                inputmode="numeric"
+                                pattern="[0-9]{10}"
+                                minlength="10"
+                                maxlength="10"
+                                autocomplete="tel"
+                                placeholder="Enter 10-digit mobile number"
+                                required>
+                            <small>Enter exactly 10 digits.</small>
+                        </div>
+
+                        <div class="checkout-field">
+                            <label for="address">Delivery address</label>
+                            <textarea
+                                id="address"
+                                name="address"
+                                minlength="10"
+                                maxlength="300"
+                                autocomplete="street-address"
+                                placeholder="House number, street, area and city"
+                                rows="4"
+                                required></textarea>
+                            <small>Enter a complete address, at least 10 characters.</small>
+                        </div>
+
+
+                        <button type="submit" class="checkout-submit">
+                            Place My Order &rarr;
+                        </button>
+                    </form>
+
+                    <a href="{% url 'home' %}" class="checkout-back">
+                        &larr; Continue shopping
+                    </a>
+                </section>
+
+                <aside class="checkout-info-card">
+                    <h2>A better shopping experience.</h2>
+
+                    <div class="checkout-benefit">
+                        <div class="checkout-benefit-icon">&#10003;</div>
+                        <div>
+                            <strong>Simple checkout</strong>
+                            <p>Enter your details to submit your order.</p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-benefit">
+                        <div class="checkout-benefit-icon">&#128230;</div>
+                        <div>
+                            <strong>Order tracking status</strong>
+                            <p>Your order status can be managed through MyShop Admin.</p>
+                        </div>
+                    </div>
+
+                    <div class="checkout-benefit">
+                        <div class="checkout-benefit-icon">&#9829;</div>
+                        <div>
+                            <strong>Thanks for shopping</strong>
+                            <p>We appreciate you choosing our store.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

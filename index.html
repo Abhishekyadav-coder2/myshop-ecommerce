@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyShop | Smart Shopping</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <div class="announcement">
+        Free delivery on orders above ₹999
+    </div>
+
+    <header class="navbar">
+        <a href="#" class="logo">My<span>Shop.</span></a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Shop</a>
+            <a href="#benefits">Why MyShop?</a>
+        </nav>
+
+        <div class="header-actions">
+            <label class="search-box">
+                <span>⌕</span>
+                <input id="searchInput" type="search"
+                       placeholder="Search products...">
+            </label>
+
+            <button class="cart-button" id="cartButton">
+                🛍 Cart <span id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">YOUR EVERYDAY UPGRADE</p>
+
+                <h1>Good things.<br>
+                    <span>Better prices.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Discover your next favourite thing.
+                    Shop quality products at prices you'll love.
+                </p>
+
+                <a class="primary-button" href="#products">
+                    Explore Collection →
+                </a>
+
+                <p class="hero-note">
+                    ✓ Easy shopping &nbsp; ✓ Great value
+                </p>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-circle"></div>
+                <div class="hero-product">🎧</div>
+                <div class="floating-tag">Your next favourite.</div>
+                <div class="hero-mini-card">
+                    <span>Customer favourite</span>
+                    <strong>Everyday essentials</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits" id="benefits">
+            <div>
+                <span class="benefit-icon">🚚</span>
+                <div>
+                    <strong>Easy Delivery</strong>
+                    <p>Convenient shopping</p>
+                </div>
+            </div>
+
+            <div>
+                <span class="benefit-icon">✦</span>
+                <div>
+                    <strong>Quality Picks</strong>
+                    <p>Products worth exploring</p>
+                </div>
+            </div>
+
+            <div>
+                <span class="benefit-icon">🔒</span>
+                <div>
+                    <strong>Safe Shopping</strong>
+                    <p>Designed with care</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="shop-section" id="products">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">THE COLLECTION</p>
+                    <h2>Find your favourites.</h2>
+                    <p>Everyday essentials, all in one place.</p>
+                </div>
+
+                <span class="product-total" id="productTotal">
+                    6 products
+                </span>
+            </div>
+
+            <div class="category-list">
+                <button class="category active" data-category="All">
+                    All Products
+                </button>
+                <button class="category" data-category="Tech">
+                    Tech
+                </button>
+                <button class="category" data-category="Fashion">
+                    Fashion
+                </button>
+                <button class="category" data-category="Lifestyle">
+                    Lifestyle
+                </button>
+            </div>
+
+            <div class="product-grid" id="productGrid">
+
+                <article class="product-card"
+                         data-name="Wireless Headphones"
+                         data-category="Tech">
+                    <div class="product-image image-lilac">
+                        <span class="product-badge">POPULAR</span>
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80"
+                             alt="Wireless headphones">
+                        <button class="quick-add" data-add="1"
+                                aria-label="Add headphones to cart">+</button>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">TECH</p>
+                        <h3>Wireless Headphones</h3>
+                        <div class="price-row">
+                            <strong>₹1,499</strong>
+                            <button class="add-button" data-add="1">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card"
+                         data-name="Classic Sneakers"
+                         data-category="Fashion">
+                    <div class="product-image image-peach">
+                        <span class="product-badge">TRENDING</span>
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80"
+                             alt="Red sports sneakers">
+                        <button class="quick-add" data-add="2"
+                                aria-label="Add sneakers to cart">+</button>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">FASHION</p>
+                        <h3>Classic Sneakers</h3>
+                        <div class="price-row">
+                            <strong>₹1,999</strong>
+                            <button class="add-button" data-add="2">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card"
+                         data-name="Smart Watch"
+                         data-category="Tech">
+                    <div class="product-image image-blue">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80"
+                             alt="Wristwatch">
+                        <button class="quick-add" data-add="3"
+                                aria-label="Add watch to cart">+</button>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">TECH</p>
+                        <h3>Smart Watch</h3>
+                        <div class="price-row">
+                            <strong>₹2,499</strong>
+                            <button class="add-button" data-add="3">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card"
+                         data-name="Everyday Backpack"
+                         data-category="Lifestyle">
+                    <div class="product-image image-green">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80"
+                             alt="Everyday backpack">
+                        <button class="quick-add" data-add="4"
+                                aria-label="Add backpack to cart">+</button>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">LIFESTYLE</p>
+                        <h3>Everyday Backpack</h3>
+                        <div class="price-row">
+                            <strong>₹899</strong>
+                            <button class="add-button" data-add="4">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card"
+                         data-name="Minimal Sunglasses"
+                         data-category="Fashion">
+                    <div class="product-image image-yellow">
+                        <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=700&q=80"
+                             alt="Sunglasses">
+                        <button class="quick-add" data-add="5"
+                                aria-label="Add sunglasses to cart">+</button>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">FASHION</p>
+                        <h3>Minimal Sunglasses</h3>
+                        <div class="price-row">
+                            <strong>₹699</strong>
+                            <button class="add-button" data-add="5">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="product-card"
+                         data-name="Everyday Bottle"
+                         data-category="Lifestyle">
+                    <div class="product-image image-pink">
+                        <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80"
+                             alt="Reusable water bottle">
+                        <button class="quick-add" data-add="6"
+                                aria-label="Add bottle to cart">+</button>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">LIFESTYLE</p>
+                        <h3>Everyday Bottle</h3>
+                        <div class="price-row">
+                            <strong>₹399</strong>
+                            <button class="add-button" data-add="6">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="empty-message" id="emptyMessage" hidden>
+                No products found. Try another search.
+            </p>
+
+            <div class="cart-summary" id="cartSummary" hidden>
+                <div>
+                    <p class="eyebrow">YOUR SHOPPING BAG</p>
+                    <h3 id="cartMessage">Your cart is empty.</h3>
+                    <p id="cartItems"></p>
+                </div>
+                <div class="cart-total">
+                    <span>Total</span>
+                    <strong id="cartTotal">₹0</strong>
+                    <button class="clear-button" id="clearCart">
+                        Clear Cart
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <p class="eyebrow">A LITTLE SOMETHING FOR YOU</p>
+            <h2>Good finds start here.</h2>
+            <p>Explore the collection and find something you love.</p>
+            <a href="#products" class="newsletter-button">
+                Shop the Collection →
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <a href="#home" class="logo">My<span>Shop.</span></a>
+        <p>Made with care for everyday shopping.</p>
+        <p>© 2026 MyShop — Learning project</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>

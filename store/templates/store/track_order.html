@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order | MyShop</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #182747;
+        }
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+        }
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 18px #0000000a;
+        }
+        label {
+            display: block;
+            margin: 14px 0 6px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 13px;
+            border: 0;
+            border-radius: 8px;
+            background: #4d66e8;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .error {
+            background: #fef2f2;
+            color: #b91c1c;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .status {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 20px;
+            background: #eef2ff;
+            font-weight: bold;
+        }
+        .item {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        a { color: #4d66e8; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p><a href="/">← Back to MyShop</a></p>
+
+    <div class="card">
+        <h1>Track Your Order</h1>
+        <p>Enter your Order ID and the phone number used at checkout.</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="order_id">Order ID</label>
+            <input
+                id="order_id"
+                name="order_id"
+                type="number"
+                min="1"
+                required
+                value="{{ request.POST.order_id|default:'' }}"
+            >
+
+            <label for="phone">Phone Number</label>
+            <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                pattern="[0-9]{10}"
+                minlength="10"
+                maxlength="10"
+                required
+                placeholder="10-digit mobile number"
+            >
+
+            <button type="submit">Find My Order</button>
+        </form>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    {% if order %}
+    <div class="card">
+        <h2>Order #{{ order.id }}</h2>
+        <p>Status: <span class="status">{{ order.status }}</span></p>
+        <p>Order date: {{ order.created_at|date:"d M Y, h:i A" }}</p>
+        <p>Total: ₹{{ order.total_amount }}</p>
+
+        <h3>Items</h3>
+        {% for item in order.items.all %}
+            <div class="item">
+                <strong>{{ item.product.name }}</strong><br>
+                Quantity: {{ item.quantity }}<br>
+                Price per unit: ₹{{ item.price }}
+            </div>
+        {% empty %}
+            <p>No items found for this order.</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>

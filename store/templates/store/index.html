@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MyShop | Smart Shopping</title>
+
+    
+    <link rel="icon" type="image/svg+xml"
+        href="{% static 'store/favicon.svg' %}">
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+    <script src="{% static 'store/script.js' %}" defer></script>
+</head>
+
+<body>
+
+    <div class="announcement">
+        Free delivery on orders above ₹999
+    </div>
+
+    <header class="navbar">
+        <a href="#" class="logo">My<span>Shop.</span></a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Shop</a>
+            <a href="#benefits">Why MyShop?</a>
+            <a href="{% url 'track_order' %}">Track Order</a>
+        </nav>
+
+        <div class="header-actions">
+            <label class="search-box">
+                <span>⌕</span>
+                <input id="searchInput" type="search" placeholder="Search products...">
+            </label>
+
+            <button class="cart-button" id="cartButton">
+                🛍 Cart <span id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">YOUR EVERYDAY UPGRADE</p>
+
+                <h1>Good things.<br>
+                    <span>Better prices.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Discover your next favourite thing.
+                    Shop quality products at prices you'll love.
+                </p>
+
+                <a class="primary-button" href="#products">
+                    Explore Collection →
+                </a>
+
+                <p class="hero-note">
+                    ✓ Easy shopping &nbsp; ✓ Great value
+                </p>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-circle"></div>
+                <div class="hero-product">🎧</div>
+                <div class="floating-tag">Your next favourite.</div>
+                <div class="hero-mini-card">
+                    <span>Customer favourite</span>
+                    <strong>Everyday essentials</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits" id="benefits">
+            <div>
+                <span class="benefit-icon">🚚</span>
+                <div>
+                    <strong>Easy Delivery</strong>
+                    <p>Convenient shopping</p>
+                </div>
+            </div>
+
+            <div>
+                <span class="benefit-icon">✦</span>
+                <div>
+                    <strong>Quality Picks</strong>
+                    <p>Products worth exploring</p>
+                </div>
+            </div>
+
+            <div>
+                <span class="benefit-icon">🔒</span>
+                <div>
+                    <strong>Safe Shopping</strong>
+                    <p>Designed with care</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="shop-section" id="products">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">THE COLLECTION</p>
+                    <h2>Find your favourites.</h2>
+                    <p>Everyday essentials, all in one place.</p>
+                </div>
+
+                <span class="product-total" id="productTotal">
+                    6 products
+                </span>
+            </div>
+
+            <div class="category-list">
+                <button class="category active" data-category="All">
+                    All Products
+                </button>
+                <button class="category" data-category="Tech">
+                    Tech
+                </button>
+                <button class="category" data-category="Fashion">
+                    Fashion
+                </button>
+                <button class="category" data-category="Lifestyle">
+                    Lifestyle
+                </button>
+            </div>
+
+
+            <div class="product-grid" id="productGrid">
+
+                {% for product in products %}
+                <article class="product-card" data-id="{{ product.id }}" data-name="{{ product.name }}"
+                    data-category="{{ product.category }}" data-price="{{ product.price }}">
+
+                    <div class="product-image image-lilac">
+                        {% if product.image_url %}
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                        {% else %}
+                        <img src="https://placehold.co/400x300.jpg" alt="No product image available">
+                        {% endif %}
+
+                        <button class="quick-add" data-add="{{ product.id }}"
+                            aria-label="Add {{ product.name }} to cart">+</button>
+                    </div>
+
+                    <div class="product-info">
+                        <p class="product-category">{{ product.category }}</p>
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+
+                        <div class="price-row">
+                            <strong>₹{{ product.price }}</strong>
+                            <button class="add-button" data-add="{{ product.id }}">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                {% empty %}
+                <p>No products available yet. Please add products in Admin.</p>
+                {% endfor %}
+
+            </div>
+
+
+            <p class="empty-message" id="emptyMessage" hidden>
+                No products found. Try another search.
+            </p>
+
+            <div class="cart-summary" id="cartSummary" hidden>
+                <div>
+                    <p class="eyebrow">YOUR SHOPPING BAG</p>
+                    <h3 id="cartMessage">Your cart is empty.</h3>
+                    <div id="cartItems" class="cart-items"></div>
+                </div>
+                <div class="cart-total">
+                    <span>Total</span>
+                    <strong id="cartTotal">₹0</strong>
+                    <button class="clear-button" id="clearCart">
+                        Clear Cart
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter">
+            <p class="eyebrow">A LITTLE SOMETHING FOR YOU</p>
+            <h2>Good finds start here.</h2>
+            <p>Explore the collection and find something you love.</p>
+            <a href="#products" class="newsletter-button">
+                Shop the Collection →
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <a href="#home" class="logo">My<span>Shop.</span></a>
+        <p>Made with care for everyday shopping.</p>
+        <p>© 2026 MyShop — Learning project</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</body>
+
+</html>

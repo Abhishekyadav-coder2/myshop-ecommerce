@@ -1,0 +1,69 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed | MyShop</title>
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+</head>
+<body>
+    <main class="success-page">
+        <div class="success-shell">
+
+            <a href="{% url 'home' %}" class="success-brand">
+                MyShop
+            </a>
+
+            <section class="success-card">
+                <div class="success-icon" aria-hidden="true">&#10003;</div>
+
+                <p class="success-eyebrow">ORDER CONFIRMED</p>
+
+                <h1>Thank you!</h1>
+
+                <p class="success-subtitle">
+                    Your order has been placed successfully.
+                    Thank you for shopping with MyShop.
+                </p>
+
+                <div class="success-order-box">
+                    <p class="success-order-label">YOUR ORDER NUMBER</p>
+                    <p class="success-order-number">#{{ order.id }}</p>
+                </div>
+
+                <div class="success-details">
+                    <div class="success-detail-row">
+                        <span>Customer</span>
+                        <strong>{{ order.customer_name }}</strong>
+                    </div>
+
+                    <div class="success-detail-row">
+                        <span>Order total</span>
+                        <strong>₹{{ order.total_amount }}</strong>
+                    </div>
+
+                    <div class="success-detail-row">
+                        <span>Order status</span>
+                        <strong class="success-status">{{ order.status }}</strong>
+                    </div>
+
+                    <div class="success-detail-row">
+                        <span>Delivery address</span>
+                        <strong>{{ order.address }}</strong>
+                    </div>
+                </div>
+
+                <a href="{% url 'home' %}" class="success-home-button">
+                    Continue Shopping &rarr;
+                </a>
+            </section>
+
+            <p class="success-footer">
+                Thank you for choosing MyShop.
+            </p>
+        </div>
+    </main>
+</body>
+</html>
